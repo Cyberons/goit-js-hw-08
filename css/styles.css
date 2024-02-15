@@ -1,14 +1,39 @@
-* {
-  box-sizing: border-box;
+
+.gallery {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-body {
-  margin: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #fafafa;
-  color: #212121;
-  line-height: 1.5;
+.gallery-item {
+  width: calc(33.333% - 10px);
+  margin-bottom: 10px;
+}
+.gallery-item:hover {
+  cursor: pointer;
+}
+
+.gallery-link {
+  display: block;
+}
+
+.gallery-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .gallery-item {
+    width: calc(50% - 10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-item {
+    width: 100%;
+  }
 }

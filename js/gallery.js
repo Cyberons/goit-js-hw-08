@@ -64,19 +64,62 @@ const images = [
   },
 ];
 
+// Select the gallery container
 const galleryContainer = document.querySelector('.gallery');
 
-const galleryMarkup = images.map(image => `
-  <li class="gallery-item">
-    <a class="gallery-link" href="${image.original}">
-      <img
-        class="gallery-image"
-        src="${image.preview}"
-        data-source="${image.original}"
-        alt="${image.description}"
-      />
-    </a>
-  </li>
-`).join('');
+// Function to create a single gallery card
+function galleryCard({ preview, original, description }) {
+  const image = `
+    <li class="gallery-item">
+      <a class="gallery-link" href="${original}">
+        <img
+          class="gallery-image"
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
+        />
+      </a>
+    </li>
+  `;
+  return image;
+}
 
-galleryContainer.innerHTML = galleryMarkup;
+// Initialize an empty string to store all gallery cards
+let galleryCards = '';
+
+// Populate the galleryCards string with individual gallery cards
+for (const img of images) { // Make sure 'images' is defined and contains the data
+  galleryCards += galleryCard(img);
+}
+
+// Add gallery cards to the gallery container
+galleryContainer.innerHTML = galleryCards;
+
+// Add a click event listener to the gallery container
+galleryContainer.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  // Check if the clicked element is a gallery image
+  if (event.target.classList.contains('gallery-image')) {
+    console.log('Image clicked:', event.target.getAttribute('data-source'));
+  }
+});
+
+galleryContainer.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  // Check if the clicked element is a gallery image
+  if (event.target.classList.contains('gallery-image')) {
+    const dataSource = event.target.getAttribute('data-source');
+    const description = event.target.getAttribute('alt');
+
+    // Create a lightbox modal and display it
+    basicLightbox.create(
+      `<div class="modal">
+        <img src="${dataSource}"
+             alt="${description}"
+             width="1100" height="600"/>
+       </div>`
+    ).show();
+  }
+});

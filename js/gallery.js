@@ -84,26 +84,13 @@ function galleryCard({ preview, original, description }) {
   return image;
 }
 
-// Initialize an empty string to store all gallery cards
-let galleryCards = '';
-
-// Populate the galleryCards string with individual gallery cards
-for (const img of images) { // Make sure 'images' is defined and contains the data
-  galleryCards += galleryCard(img);
-}
+// Initiate the galleryCards string with individual gallery cards
+const galleryCards = images.map(galleryCard).join('');
 
 // Add gallery cards to the gallery container
 galleryContainer.innerHTML = galleryCards;
 
 // Add a click event listener to the gallery container
-galleryContainer.addEventListener('click', (event) => {
-  event.preventDefault();
-
-  // Check if the clicked element is a gallery image
-  if (event.target.classList.contains('gallery-image')) {
-    console.log('Image clicked:', event.target.getAttribute('data-source'));
-  }
-});
 
 galleryContainer.addEventListener('click', (event) => {
   event.preventDefault();
